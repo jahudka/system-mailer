@@ -1,0 +1,12 @@
+{
+  "name": "jahudka/system-mailer",
+  "type": "project",
+  "license": "MIT",
+  "description": "Sendmail replacement",
+  "require": {
+    "php": ">=8.0",
+    "symfony/mailer": "6.0.*",
+    "symfony/yaml": "6.0.*",
+    "zbateson/mail-mime-parser": "2.2.*"
+  }
+}
