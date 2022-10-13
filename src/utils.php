@@ -17,14 +17,11 @@ function format_dsn(array $config) : string {
 
 function parse_cli_args(array $argv) : array {
   for ($i = 1, $n = count($argv); $i < $n; ++$i) {
-    if (preg_match('~^-[-BCDdFfhLNOopqQRrVX](.?)~', $argv[$i], $m)) {
-      if (!$m[1]) {
-        ++$i;
-      }
-
-      if ($argv[$i] === '--') {
-        break;
-      }
+    if ($argv[$i] === '--') {
+      ++$i;
+      break;
+    } else if (preg_match('~^-([BCDdFfhLNOopqQRrVX]|q[pG])$~', $argv[$i])) {
+      ++$i;
     } else if ($argv[$i][0] !== '-') {
       break;
     }

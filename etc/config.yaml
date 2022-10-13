@@ -1,9 +1,9 @@
 # SMTP config
 smtp_host: smtp.example.com
 smtp_port: 465
-smtp_secure: true
 smtp_user: my-server@example.com
 smtp_password: some-super-secret-password
+smtp_secure: true
 
 # The address from which e-mails should be sent
 mail_from: my-server@example.com
