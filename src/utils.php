@@ -15,19 +15,32 @@ function format_dsn(array $config) : string {
 }
 
 
-function parse_cli_args(array $argv) : array {
+function parse_cli_args(array $argv, ?string $defaultRecipient = null) : iterable {
   for ($i = 1, $n = count($argv); $i < $n; ++$i) {
-    if ($argv[$i] === '--') {
+    if (preg_match('~^-(-|[BCDdFfhLNOopqQRrVX]|q[pG])$~', $argv[$i], $m)) {
       ++$i;
-      break;
-    } else if (preg_match('~^-([BCDdFfhLNOopqQRrVX]|q[pG])$~', $argv[$i])) {
-      ++$i;
+
+      if ($m[1] === '-') {
+        break;
+      }
     } else if ($argv[$i][0] !== '-') {
       break;
     }
   }
 
-  return array_slice($argv, $i);
+  foreach (array_slice($argv, $i) as $arg) {
+    if (filter_var($arg, FILTER_VALIDATE_EMAIL)) {
+      yield $arg;
+    } else if ($defaultRecipient) {
+      if (str_starts_with($defaultRecipient, '@')) {
+        yield $arg . $defaultRecipient;
+      } else if (str_contains($defaultRecipient, '%s')) {
+        yield sprintf($defaultRecipient, $arg);
+      } else {
+        yield sprintf('%s <%s>', $arg, $defaultRecipient);
+      }
+    }
+  }
 }
 
 

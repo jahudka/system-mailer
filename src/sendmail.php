@@ -31,11 +31,7 @@ try {
 try {
   $msg = new Symfony\Component\Mime\Email();
   $msg->from($config['mail_from']);
-
-  foreach (parse_cli_args($_SERVER['argv']) as $to) {
-    $msg->addTo($to);
-  }
-
+  $msg->addTo(...parse_cli_args($_SERVER['argv'], $config['default_recipient'] ?? null));
   convert_message($src, $msg);
 } catch (Throwable $e) {
   printf("Failed processing message: %s\n", $e->getMessage());

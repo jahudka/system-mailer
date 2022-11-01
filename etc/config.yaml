@@ -7,3 +7,9 @@ smtp_secure: true
 
 # The address from which e-mails should be sent
 mail_from: my-server@example.com
+
+# This option is used when any of the recipients received on the command line
+# are not a full e-mail address.
+#default_recipient: @example.com                # 'root' => 'root@example.com'
+#default_recipient: admin@example.com           # 'root' => 'root <admin@example.com>'
+#default_recipient: User %s <admin@example.com> # 'root' => 'User root <admin@example.com>'
