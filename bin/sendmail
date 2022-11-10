@@ -1,21 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env php
+<?php
 
-set -eu
-
-baseDir="$( dirname "$( dirname "$( realpath "$0" )" )" )"
-candidates=("php" "php8.0")
-phpBin=""
-
-for candidate in "${candidates[@]}"; do
-  if command -v "${candidate}" &>/dev/null && "${candidate}" -r 'exit(version_compare(PHP_VERSION, "8.0") >= 0 ? 0 : 1);'; then
-    phpBin="${candidate}"
-    break
-  fi
-done
-
-if [[ -z "${phpBin}" ]]; then
-  echo "Unable to find suitable PHP runtime"
-  exit 1
-fi
-
-"${phpBin}" "${baseDir}/src/sendmail.php" "$@"
+require __DIR__ . '/../src/sendmail.php';
