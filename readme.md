@@ -1,5 +1,7 @@
 # SystemMailer
 
+> This package is deprecated, because msmtp exists. Google it.
+
 This is an extremely simplified `sendmail`-like utility to send e-mails
 via SMTP from a system which doesn't have `sendmail`. It's written in PHP 8.
 
